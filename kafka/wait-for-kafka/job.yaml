@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: wait-for-kafka
+spec:
+  template:
+    spec:
+      containers:
+        - name: wait-for-kafka
+          image: localhost:35000/wait-for-kafka:latest
+          env:
+            - name: KAFKA_ENDPOINT
+              value: kafka-headless.default.svc.cluster.local
+            - name: KAFKA_TOPIC
+              value: test-topic
+      restartPolicy: Never
